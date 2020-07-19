@@ -4,27 +4,41 @@
     "name": "John Smith",
     "role": "Worker Bee",
     "department": "Bee",
-    "workNumber": "4546565664"
+    "workNumber": "454-656-5664"
   },
   {
     "id": "2",
     "name": "John Doe",
     "role": "Manager",
     "department": "Quality Control",
-    "workNumber": "7815457459"
+    "workNumber": "781-545-7459"
   },
   {
     "id": "3",
     "name": "Benedict Cumberbatch",
     "role": "Sorcerer Supreme",
     "department": "Bee",
-    "workNumber": "4546565664"
+    "workNumber": "454-656-5664"
   },
   {
     "id": "4",
     "name": "Rober Downey Jr.",
     "role": "Iron man",
     "department": "Tech Lead",
-    "workNumber": "8645641247"
+    "workNumber": "864-564-1247"
+  },
+  {
+    "id": "5",
+    "name": "Tom Holland",
+    "role": "Spider-Man",
+    "department": "Tech Lead",
+    "workNumber": "864-386-1247"
+  },
+  {
+    "id": "6",
+    "name": "Thor",
+    "role": "Manager",
+    "department": "Quality Control",
+    "workNumber": "764-781-1127"
   }
 ]
