@@ -21,38 +21,34 @@ class App extends React.Component {
 
   componentDidMount = () => {
     //Fill the roles in state
-    const tempRoles = {};
-    this.state.employees.forEach((employee) => {
-      if (!tempRoles.hasOwnProperty(employee.role)) {
-        const role = employee.role;
-        tempRoles[role] = true;
-      }
-    });
-    this.setState({ roles: tempRoles });
+    const tempRoles = getSelection("role", this.state.employees);
+    const tempDepartments = getSelection("department", this.state.employees);
+    this.setState({ departments: tempDepartments, roles: tempRoles });
   };
 
   sorting = (column) => {
     let sorted, status;
+
     if (this.state[column] === "none") {
-      sorted = sortAscending(this.state.sortedEmployees);
+      sorted = sortAscending(this.state.sortedEmployees, column);
       status = "ascending";
-    } else if (this.state[column] === "descending") {
-      sorted = sortAscending(this.state.sortedEmployees).reverse();
+    } else if (this.state[column] === "ascending") {
+      sorted = sortAscending(this.state.sortedEmployees, column).reverse();
       status = "descending";
     } else {
-      sorted = this.state.fileEmployees;
+      sorted = sortAscending(this.state.sortedEmployees, "id");
       status = "none";
     }
 
     this.setState({ sortedEmployees: sorted, [column]: status });
   };
 
-  filter = (top, lower) => {
-    if (lower === "none") {
+  filter = (column, value) => {
+    if (value === "none") {
       this.setState({ sortedEmployees: this.state.employees });
     } else {
       const sorted = this.state.employees.filter(
-        (employee) => employee[top] === lower
+        (employee) => employee[column] === value
       );
       this.setState({ sortedEmployees: sorted });
     }
@@ -61,17 +57,42 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Navigation roles={this.state.roles} filter={this.filter} />
+        <Navigation
+          roles={this.state.roles}
+          departments={this.state.departments}
+          filter={this.filter}
+        />
         <Main employees={this.state.sortedEmployees} sorting={this.sorting} />
       </div>
     );
   }
 }
 
-const sortAscending = (employees) => {
-  const sorted = employees;
+const sortAscending = (employees, column) => {
+  return employees.sort((a, b) => {
+    const tempA = a[column].toLowerCase();
+    const tempB = b[column].toLowerCase();
+    if (tempA < tempB) {
+      return -1;
+    }
+    if (tempA > tempB) {
+      return 1;
+    }
+    return 0;
+  });
+};
 
-  return sorted;
+const getSelection = (column, employees) => {
+  const temp = {};
+
+  employees.forEach((employee) => {
+    if (!temp.hasOwnProperty(employee[column])) {
+      const value = employee[column];
+      temp[value] = true;
+    }
+  });
+
+  return temp;
 };
 
 export default App;

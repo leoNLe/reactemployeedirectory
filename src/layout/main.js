@@ -1,13 +1,10 @@
 import React from "react";
 import Employee from "../components/employee/";
-
+import "./index.css";
 class Main extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   sort = (event) => {
-    console.log(event.target.name);
-    this.props.sorting(event.target.name);
+    console.log(event.target.innerText);
+    this.props.sorting(event.target.innerText.toLowerCase());
   };
   render() {
     const employees = this.props.employees.map((employee) => {
@@ -19,30 +16,28 @@ class Main extends React.Component {
         <thead>
           <tr>
             <th>
+              <button name="name" onClick={this.sort} className="sortButton">
+                <span>Name</span>
+              </button>
+            </th>
+            <th>
+              <button name="role" onClick={this.sort} className="sortButton">
+                <span> Role </span>
+              </button>
+            </th>
+            <th>
               <button
+                name="department"
                 onClick={this.sort}
-                style={{
-                  outline: "none",
-                  border: "none",
-                  backgroundColor: "Transparent",
-                }}
-                name="name"
+                className="sortButton"
               >
-                Name
+                <span> Department </span>
               </button>
             </th>
             <th>
-              <button name="role" onClick={this.sort}>
-                Role
+              <button className="sortButton">
+                <span> Work Number </span>
               </button>
-            </th>
-            <th>
-              <button name="department" onClick={this.sort}>
-                Department
-              </button>
-            </th>
-            <th>
-              <button name="workNumber">Work Number</button>
             </th>
           </tr>
         </thead>
